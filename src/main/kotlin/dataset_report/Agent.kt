@@ -34,26 +34,23 @@ fun main() = runBlocking {
     )
 
     val agent = AIAgent(
-//        toolRegistry = ToolRegistry {
-//            tool(::readDataset.asTool())
-//            tool(::analyzeMissingValues.asTool())
-//            tool(::inferDataTypes.asTool())
-//            tool(::suggestReplacements.asTool())
-//            tool(::generateMarkdownReport.asTool())
-//        },
+        toolRegistry = ToolRegistry {
+            tool(::getPrice.asTool())
+        },
         agentConfig = AIAgentConfig(
             prompt = prompt("dataset-agent") {
-                system("You are a helpful zoo assistance.")
+                system("You are a helpful store assistant.\n" +
+                        "        When a user asks for a price, use the tool get_price(item: String) to get it.")
             },
             model = llama3,
-            maxAgentIterations = 100
+            maxAgentIterations = 10
         ),
         promptExecutor = simpleOllamaAIExecutor(),
         strategy = singleRunStrategy()
     )
 
     val result = try {
-        agent.run("Tell me please about crocodiles")
+        agent.run("Give me please a price of a milk, banana and watermelon")
     } catch (e: Exception) {
         e.printStackTrace()
         "Error: ${e.message}"
