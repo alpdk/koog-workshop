@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm") version "2.2.20"
+    kotlin("plugin.serialization") version "1.9.10"
+    application
 }
 
 group = "ai.koog"
@@ -13,6 +15,7 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation(libs.koog.agents)
     implementation(libs.logback.classic)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }
 
 kotlin {
