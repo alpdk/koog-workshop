@@ -10,17 +10,14 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
-    // Get your OpenAI API key from environment
     val token = System.getenv("OPENAI_API_KEY")
     if (token.isNullOrBlank()) {
         println("Error: OPENAI_API_KEY is not set.")
         return@runBlocking
     }
 
-    // Initialize your dataset tools
     val reporter = DatasetTools()
 
-    // --- Create the AI agent ---
     val agent = AIAgent(
         toolRegistry = ToolRegistry {
             tools(reporter.asTools())
@@ -44,8 +41,7 @@ fun main() = runBlocking {
     println("=== Dataset Assistant (Chat Mode) ===")
     println("Type 'exit' to quit.")
     println("-------------------------------------")
-
-    // --- Chat loop ---
+    
     while (true) {
         print("You: ")
         val userInput = readLine().orEmpty()
