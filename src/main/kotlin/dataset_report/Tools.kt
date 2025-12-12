@@ -144,6 +144,12 @@ class DatasetTools : ToolSet {
         return saveFile(path, sb.toString())
     }
 
+    @Tool("exit_chat")
+    @LLMDescription("End the conversation. Returns special token '__EXIT__'.")
+    fun exitChat(message: String? = null): String {
+        return if (message.isNullOrBlank()) "__EXIT__" else "__EXIT__ $message"
+    }
+
     fun readCsvProper(path: String): List<Map<String, String>> {
         val file = File(path)
         require(file.exists()) { "CSV file not found: $path" }
